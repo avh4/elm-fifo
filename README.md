@@ -1,5 +1,5 @@
 
-A first-in, first-out queue (https://en.wikipedia.org/wiki/FIFO_(computing_and_electronics)) backed by lists.
+A first-in, first-out queue ([FIFO](https://en.wikipedia.org/wiki/FIFO_(computing_and_electronics))) backed by lists.
 
 ```bash
 elm-package install avh4/elm-fifo
