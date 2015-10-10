@@ -1,6 +1,6 @@
 {
     "version": "1.0.0",
-    "summary": "first in, first out (FIFO) queue",
+    "summary": "First in, first out (FIFO) queue",
     "repository": "https://github.com/avh4/elm-fifo.git",
     "license": "MIT",
     "source-directories": [
