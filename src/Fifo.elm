@@ -1,8 +1,4 @@
-module Fifo
-    ( Fifo
-    , empty, insert, remove
-    , fromList, toList
-    ) where
+module Fifo (Fifo, empty, insert, remove, fromList, toList) where
 
 {-|
 
@@ -20,7 +16,8 @@ module Fifo
 
 {-| A FIFO containing items of type `a`.
 -}
-type Fifo a = Fifo (List a) (List a)
+type Fifo a
+    = Fifo (List a) (List a)
 
 
 {-| Creates an empty Fifo.
@@ -44,7 +41,7 @@ empty =
 -}
 insert : a -> Fifo a -> Fifo a
 insert a (Fifo front back) =
-    Fifo front (a::back)
+    Fifo front (a :: back)
 
 
 {-| Removes the next (oldest) item from a Fifo, returning the item (if any), and the updated Fifo.
@@ -54,15 +51,17 @@ insert a (Fifo front back) =
         -- == (Just 3, Fifo.fromList [7])
 
 -}
-remove : Fifo a -> (Maybe a, Fifo a)
+remove : Fifo a -> ( Maybe a, Fifo a )
 remove fifo =
     case fifo of
         Fifo [] [] ->
-            (Nothing, empty)
+            ( Nothing, empty )
+
         Fifo [] back ->
             remove <| Fifo (List.reverse back) []
-        Fifo (next::rest) back ->
-            (Just next, Fifo rest back)
+
+        Fifo (next :: rest) back ->
+            ( Just next, Fifo rest back )
 
 
 {-| Creates a Fifo from a List.
