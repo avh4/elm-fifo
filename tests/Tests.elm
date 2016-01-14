@@ -16,6 +16,24 @@ all =
       |> test "empty FIFO contains nothing",
 
       Fifo.empty
+      |> Fifo.isEmpty
+      |> assertEqual True
+      |> test "empty FIFO is reported as such",
+
+      Fifo.empty
+      |> Fifo.insert 7
+      |> Fifo.isEmpty
+      |> assertEqual False
+      |> test "non-empty FIFO is reported as such",
+
+      Fifo.empty
+      |> Fifo.insert 7
+      |> Fifo.insert 8
+      |> Fifo.front
+      |> assertEqual (Just 7)
+      |> test "can read the front value",
+
+      Fifo.empty
       |> Fifo.insert 9
       |> Fifo.remove |> fst
       |> assertEqual (Just 9)
@@ -43,7 +61,7 @@ all =
       |> Fifo.insert 7
       |> Fifo.remove |> fst
       |> assertEqual (Just 8)
-      |> test "removing an item after inserting after a removal",
+      |> test "can remove an item after removal followed by insertion",
 
       Fifo.empty
       |> Fifo.insert 9
@@ -53,7 +71,16 @@ all =
       |> Fifo.remove |> snd
       |> Fifo.remove |> fst
       |> assertEqual (Just 7)
-      |> test "removing an item inserted after a removal",
+      |> test "can remove an item inserted after a removal",
+
+      Fifo.empty
+      |> Fifo.insert 9
+      |> Fifo.insert 8
+      |> Fifo.remove |> snd
+      |> Fifo.insert 7
+      |> Fifo.length
+      |> assertEqual 2
+      |> test "keeping track of length",
 
       Fifo.empty
       |> Fifo.insert 9

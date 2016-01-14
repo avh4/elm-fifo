@@ -1,4 +1,4 @@
-module Fifo (Fifo, empty, insert, remove, fromList, toList) where
+module Fifo (Fifo, empty, isEmpty, insert, remove, front, length, fromList, toList) where
 
 {-|
 
@@ -11,14 +11,16 @@ module Fifo (Fifo, empty, insert, remove, fromList, toList) where
 # To List
 @docs toList
 
+# Checking state
+@docs isEmpty, front, length
+
 -}
 
 
 {-| A FIFO containing items of type `a`.
 -}
 type Fifo a
-    = Fifo (List a) (List a)
-
+    = Empty | Node a (List a)
 
 {-| Creates an empty Fifo.
 
@@ -28,8 +30,19 @@ type Fifo a
 -}
 empty : Fifo a
 empty =
-    Fifo [] []
+    Empty
 
+
+{-| Checks whether a Fifo is empty.
+
+    Fifo.empty
+    |> Fifo.insert 7
+    |> Fifo.isEmpty
+        -- == False
+-}
+isEmpty : Fifo a -> Bool
+isEmpty fifo =
+    fifo == Empty
 
 {-| Inserts an item into a Fifo
 
@@ -40,8 +53,13 @@ empty =
 
 -}
 insert : a -> Fifo a -> Fifo a
-insert a (Fifo front back) =
-    Fifo front (a :: back)
+insert a fifo =
+    case fifo of
+        Empty ->
+            Node a []
+
+        Node front back ->
+            Node front (List.append back [a])
 
 
 {-| Removes the next (oldest) item from a Fifo, returning the item (if any), and the updated Fifo.
@@ -54,14 +72,47 @@ insert a (Fifo front back) =
 remove : Fifo a -> ( Maybe a, Fifo a )
 remove fifo =
     case fifo of
-        Fifo [] [] ->
+        Empty ->
             ( Nothing, empty )
 
-        Fifo [] back ->
-            remove <| Fifo (List.reverse back) []
+        Node front [] ->
+            ( Just front, empty )
 
-        Fifo (next :: rest) back ->
-            ( Just next, Fifo rest back )
+        Node front (next :: rest) ->
+            ( Just front, Node next rest )
+
+
+{-| Reads a Fifo's front value.
+
+    Fifo.fromList [3,7]
+    |> Fifo.front
+        -- == (Just 3)
+
+-}
+front : Fifo a -> Maybe a
+front fifo =
+    case fifo of
+        Empty ->
+            Nothing
+
+        Node front back ->
+            Just front
+
+
+{-| Reports the length of a Fifo.
+
+    Fifo.fromList [3,4,5]
+    |> Fifo.length
+        -- == 3
+
+-}
+length : Fifo a -> Int
+length fifo =
+    case fifo of
+        Empty ->
+            0
+        Node front back ->
+            1 + List.length back
 
 
 {-| Creates a Fifo from a List.
@@ -74,7 +125,12 @@ remove fifo =
 -}
 fromList : List a -> Fifo a
 fromList list =
-    Fifo list []
+    case list of
+        (first :: rest) ->
+            Node first rest
+
+        [] ->
+            empty
 
 
 {-| Converts a Fifo to a List.
@@ -86,5 +142,10 @@ fromList list =
         -- == [7,9]
 -}
 toList : Fifo a -> List a
-toList (Fifo front back) =
-    front ++ List.reverse back
+toList fifo =
+    case fifo of
+        Empty ->
+            []
+
+        Node front back ->
+            [front] ++ back
