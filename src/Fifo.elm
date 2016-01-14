@@ -1,4 +1,4 @@
-module Fifo (Fifo, empty, insert, remove, fromList, toList) where
+module Fifo (Fifo, empty, isEmpty, insert, remove, front, length, fromList, toList) where
 
 {-|
 
@@ -10,6 +10,9 @@ module Fifo (Fifo, empty, insert, remove, fromList, toList) where
 
 # To List
 @docs toList
+
+# Checking state
+@docs isEmpty, front, length
 
 -}
 
@@ -29,6 +32,17 @@ empty : Fifo a
 empty =
     Empty
 
+
+{-| Checks whether a Fifo is empty.
+
+    Fifo.empty
+    |> Fifo.insert 7
+    |> Fifo.isEmpty
+        -- == False
+-}
+isEmpty : Fifo a -> Bool
+isEmpty fifo =
+    fifo == Empty
 
 {-| Inserts an item into a Fifo
 
@@ -66,6 +80,39 @@ remove fifo =
 
         Node front (next :: rest) ->
             ( Just front, Node next rest )
+
+
+{-| Reads a Fifo's front value.
+
+    Fifo.fromList [3,7]
+    |> Fifo.front
+        -- == (Just 3)
+
+-}
+front : Fifo a -> Maybe a
+front fifo =
+    case fifo of
+        Empty ->
+            Nothing
+
+        Node front back ->
+            Just front
+
+
+{-| Reports the length of a Fifo.
+
+    Fifo.fromList [3,4,5]
+    |> Fifo.length
+        -- == 3
+
+-}
+length : Fifo a -> Int
+length fifo =
+    case fifo of
+        Empty ->
+            0
+        Node front back ->
+            1 + List.length back
 
 
 {-| Creates a Fifo from a List.
