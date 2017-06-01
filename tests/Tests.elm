@@ -1,77 +1,87 @@
 module Tests exposing (..)
 
-import ElmTest exposing (..)
+import Test exposing (..)
+import Expect exposing (..)
 import Fifo
+import Tuple exposing (..)
 
 
 all : Test
 all =
-    suite "all"
+    describe "all"
         [ Fifo.empty
             |> Fifo.remove
-            |> fst
-            |> assertEqual Nothing
+            |> first
+            |> equal Nothing
+            |> (\x -> (\() -> x))
             |> test "empty FIFO contains nothing"
         , Fifo.empty
             |> Fifo.insert 9
             |> Fifo.remove
-            |> fst
-            |> assertEqual (Just 9)
+            |> first
+            |> equal (Just 9)
+            |> (\x -> (\() -> x))
             |> test "can remove items"
         , Fifo.empty
             |> Fifo.insert 9
             |> Fifo.insert 8
             |> Fifo.remove
-            |> fst
-            |> assertEqual (Just 9)
+            |> first
+            |> equal (Just 9)
+            |> (\x -> (\() -> x))
             |> test "removes first item first"
         , Fifo.empty
             |> Fifo.insert 9
             |> Fifo.insert 8
             |> Fifo.remove
-            |> snd
+            |> second
             |> Fifo.remove
-            |> fst
-            |> assertEqual (Just 8)
+            |> first
+            |> equal (Just 8)
+            |> (\x -> (\() -> x))
             |> test "removes second item"
         , Fifo.empty
             |> Fifo.insert 9
             |> Fifo.insert 8
             |> Fifo.remove
-            |> snd
+            |> second
             |> Fifo.insert 7
             |> Fifo.remove
-            |> fst
-            |> assertEqual (Just 8)
+            |> first
+            |> equal (Just 8)
+            |> (\x -> (\() -> x))
             |> test "removing an item after inserting after a removal"
         , Fifo.empty
             |> Fifo.insert 9
             |> Fifo.insert 8
             |> Fifo.remove
-            |> snd
+            |> second
             |> Fifo.insert 7
             |> Fifo.remove
-            |> snd
+            |> second
             |> Fifo.remove
-            |> fst
-            |> assertEqual (Just 7)
+            |> first
+            |> equal (Just 7)
+            |> (\x -> (\() -> x))
             |> test "removing an item inserted after a removal"
         , Fifo.empty
             |> Fifo.insert 9
             |> Fifo.insert 8
             |> Fifo.insert 7
             |> Fifo.remove
-            |> snd
+            |> second
             |> Fifo.insert 6
             |> Fifo.insert 5
             |> Fifo.toList
-            |> assertEqual [ 8, 7, 6, 5 ]
+            |> equal [ 8, 7, 6, 5 ]
+            |> (\x -> (\() -> x))
             |> test "toList"
         , Fifo.fromList [ 1, 2, 3, 4 ]
             |> Fifo.remove
-            |> snd
+            |> second
             |> Fifo.remove
-            |> fst
-            |> assertEqual (Just 2)
+            |> first
+            |> equal (Just 2)
+            |> (\x -> (\() -> x))
             |> test "fromList"
         ]
