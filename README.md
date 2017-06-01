@@ -31,3 +31,10 @@ main =
     |> Html.text
         -- Shows "Just 42"
 ```
+
+## Running tests
+
+```
+npm install
+npm test
+```
