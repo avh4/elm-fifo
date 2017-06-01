@@ -1,5 +1,5 @@
 {
-    "version": "1.0.3",
+    "version": "1.0.4",
     "summary": "First in, first out (FIFO) queue",
     "repository": "https://github.com/avh4/elm-fifo.git",
     "license": "MIT",
@@ -7,7 +7,6 @@
         "src"
     ],
     "exposed-modules": [
-        "Fifo"
     ],
     "dependencies": {
         "elm-lang/core": "5.0.0 <= v < 6.0.0"

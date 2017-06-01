@@ -1,0 +1,21 @@
+{
+  "name": "elm-fifo",
+  "version": "1.0.4",
+  "description": "First in, first out (FIFO) queue",
+  "scripts": {
+    "test": "node_modules/.bin/elm-test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/avh4/elm-fifo.git"
+  },
+  "author": "Aaron VonderHaar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/avh4/elm-fifo/issues"
+  },
+  "homepage": "https://github.com/avh4/elm-fifo#readme",
+  "dependencies": {
+    "elm-test": "^0.18.4"
+  }
+}
