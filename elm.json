@@ -3,7 +3,7 @@
     "name": "avh4/elm-fifo",
     "summary": "First in, first out (FIFO) queue",
     "license": "MIT",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "exposed-modules": [
         "Fifo"
     ],
