@@ -2,7 +2,7 @@
 A first-in, first-out queue ([FIFO](https://en.wikipedia.org/wiki/FIFO_(computing_and_electronics))) backed by lists.
 
 ```bash
-elm-package install avh4/elm-fifo
+elm install avh4/elm-fifo
 ```
 
 ## Basic API
@@ -25,9 +25,9 @@ main =
     Fifo.empty
     |> Fifo.insert 7
     |> Fifo.insert 42
-    |> Fifo.remove |> snd
-    |> Fifo.remove |> fst
-    |> toString
+    |> Fifo.remove |> Tuple.first
+    |> Fifo.remove |> Tuple.second
+    |> Debug.toString
     |> Html.text
         -- Shows "Just 42"
 ```

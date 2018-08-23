@@ -78,7 +78,7 @@ remove fifo =
 
     Fifo.fromList [3,4,5]
     |> Fifo.remove
-    |> fst
+    |> Tuple.first
         -- == Just 3
 
 -}
