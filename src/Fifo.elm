@@ -1,14 +1,24 @@
-module Fifo exposing (Fifo, empty, insert, remove, fromList, toList)
+module Fifo exposing
+    ( Fifo, empty, fromList
+    , insert, remove
+    , toList
+    )
 
 {-|
 
+
 # Creating FIFOs
+
 @docs Fifo, empty, fromList
 
+
 # Inserting/Removing
+
 @docs insert, remove
 
+
 # To List
+
 @docs toList
 
 -}
@@ -84,6 +94,7 @@ fromList list =
     |> Fifo.insert 9
     |> Fifo.toList
         -- == [7,9]
+
 -}
 toList : Fifo a -> List a
 toList (Fifo front back) =
