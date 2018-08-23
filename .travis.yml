@@ -1,11 +1,12 @@
 sudo: false
 
 language: node_js
+node_js: "10"
 
 install:
   - mkdir -p elm-home
   - export ELM_HOME="`realpath elm-home`"
-  - npm install -f
+  - npm install
 
 script:
   - npx elm make
