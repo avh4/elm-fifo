@@ -25,8 +25,8 @@ main =
     Fifo.empty
     |> Fifo.insert 7
     |> Fifo.insert 42
-    |> Fifo.remove |> Tuple.first
-    |> Fifo.remove |> Tuple.second
+    |> Fifo.remove |> Tuple.second -- gets the updated queue
+    |> Fifo.remove |> Tuple.first -- gets the value at the top
     |> Debug.toString
     |> Html.text
         -- Shows "Just 42"
