@@ -83,4 +83,22 @@ all =
                     |> Fifo.remove
                     |> Tuple.first
                     |> Expect.equal (Just 2)
+        , test "length" <|
+            \() ->
+                Fifo.fromList [ 1, 2, 3 ]
+                    |> Fifo.length
+                    |> Expect.equal 3
+        , test "length empty" <|
+            \() ->
+                Fifo.empty
+                    |> Fifo.length
+                    |> Expect.equal 0
+
+        , test "length remove" <|
+            \() ->
+                Fifo.fromList [ 1, 2, 3 ]
+                    |> Fifo.remove
+                    |> Tuple.second
+                    |> Fifo.length
+                    |> Expect.equal 2
         ]
